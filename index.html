@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Character Analyzer</title>
+<style>
+    body {
+      font-size: 50px;
+      font-family: 'Courier New', monospace;
+    }
+
+    .input-container {
+      margin-bottom: 20px;
+    }
+
+    .inputLabel {
+      padding: 5px;
+      font-size: 1em;
+      border: 2px solid #3498db;
+      border-radius: 5px;
+      width: 500px; /* Adjusted width for input labels */
+      box-sizing: border-box;
+      margin-bottom: 5px;
+    }
+
+    .inputText {
+      padding: 10px;
+      font-size: 1em;
+      border: 2px solid #3498db;
+      border-radius: 5px;
+      width: 500px;
+      box-sizing: border-box;
+    }
+
+    .result {
+      margin-top: 10px;
+      font-size: 1em;
+    }
+
+    .uppercase {
+      color: BLUE;
+      text-decoration: underline;
+      text-transform: uppercase;
+    }
+
+    .lowercase {
+      color: MAGENTA;
+    }
+
+    .number {
+      color: ORANGE;
+    }
+</style>
+
+</head>
+<body>
+
+.\Jtrombolini <!-- Added heading here -->
+
+  <div class="input-container">
+    <input type="text" class="inputLabel" id="inputLabel1" value="NJ-">
+    <input type="text" class="inputText" id="inputText1" placeholder="">
+    <div class="result" id="result1"></div>
+  </div>
+
+  <div class="input-container">
+    <input type="text" class="inputLabel" id="inputLabel2" value="NJ-">
+    <input type="text" class="inputText" id="inputText2" placeholder="">
+    <div class="result" id="result2"></div>
+  </div>
+
+  <div class="input-container">
+    <input type="text" class="inputLabel" id="inputLabel3" value="NJ-">
+    <input type="text" class="inputText" id="inputText3" placeholder="">
+    <div class="result" id="result3"></div>
+  </div>
+
+  <div class="input-container">
+    <input type="text" class="inputLabel" id="inputLabel4" value="NJ-">
+    <input type="text" class="inputText" id="inputText4" placeholder="">
+    <div class="result" id="result4"></div>
+  </div>
+
+  <div class="input-container">
+    <input type="text" class="inputLabel" id="inputLabel5" value="NJ-">
+    <input type="text" class="inputText" id="inputText5" placeholder="">
+    <div class="result" id="result5"></div>
+  </div>
+
+  <script>
+    function analyzeInput(inputId, resultId) {
+      var userInput = document.getElementById(inputId).value;
+      var formattedResult = '';
+
+      for (var i = 0; i < userInput.length; i++) {
+        var char = userInput.charAt(i);
+
+        if (/[A-Z]/.test(char)) {
+          formattedResult += `<span class="uppercase">${char}</span>`;
+        } else if (/[a-z]/.test(char)) {
+          formattedResult += `<span class="lowercase">${char}</span>`;
+        } else if (/[0-9]/.test(char)) {
+          formattedResult += `<span class="number">${char}</span>`;
+        } else {
+          formattedResult += char; // Keep other characters unchanged
+        }
+      }
+
+      // Display the formatted result in the corresponding result div
+      var resultDiv = document.getElementById(resultId);
+      resultDiv.innerHTML = formattedResult;
+    }
+
+    // Add event listener to update the result while typing for each input
+    for (var i = 1; i <= 5; i++) {
+      var inputId = 'inputText' + i;
+      var resultId = 'result' + i;
+      document.getElementById(inputId).addEventListener('input', (function(inputId, resultId) {
+        return function() {
+          analyzeInput(inputId, resultId);
+        };
+      })(inputId, resultId));
+
+      // Initial analysis when the page loads for each input
+      analyzeInput(inputId, resultId);
+    }
+  </script>
+</body>
+</html>
